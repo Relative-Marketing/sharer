@@ -15,7 +15,9 @@
 .social-network-form-field {
 	padding: 10px 0;
 
-	label {
+	label, h3 {
+		color: #23282d;
+		font-weight:normal;
 		font-size: 1.3rem;
 		margin-bottom: 10px;
 	}
@@ -26,6 +28,19 @@
 
 	input[type=text] {
 		padding: 10px;
+	}
+
+}
+
+.social-network-form-select-input {
+	margin-right: 1rem;
+
+	input {
+		margin-right: 0.5rem;
+	}
+
+	label {
+		font-size: 1rem;
 	}
 }
 

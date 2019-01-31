@@ -1,5 +1,5 @@
 <?php 
-
+namespace RelativeMarketing\Sharer;
 /**
  * ⚠️ WARNING ⚠️
  * 
@@ -61,17 +61,23 @@ function test() {
 	echo "<p><strong>delete it again: </strong></p>";
 	var_dump( delete_social_network( $twitter->get_id() ) );
 	var_dump( get_registered_social_networks() );
-	echo "<p><strong>Update social_network: </strong></p>";
-	var_dump( update_social_network( 'facebook', 'nice_name', 'Test update nicename' ) );
+	echo "<p><strong>Update social_network value: </strong></p>";
+	var_dump( update_social_network_value( 'facebook', 'nice_name', 'Test update nicename' ) );
 	var_dump( get_registered_social_networks() );
 	echo "<p><strong>Should be an error key not valid: </strong></p>";
-	var_dump( update_social_network( 'facebook', 'weird_name', 'Test update' ) );
+	var_dump( update_social_network_value( 'facebook', 'weird_name', 'Test update' ) );
 	echo "<p><strong>Register twitter again for html output: </strong></p>";
 	register_and_activate_social_network( $twitter, RELATIVE_SHARER_AVAILABLE_CONTEXTS );
 	register_and_activate_social_network( $facebook, RELATIVE_SHARER_AVAILABLE_CONTEXTS );
-	var_dump( update_social_network( 'facebook', 'nice_name', 'Facebook' ) );
+	var_dump( update_social_network_value( 'facebook', 'nice_name', 'Facebook' ) );
+
 	
 	
 	var_dump(get_registered_social_networks());
+
+	//delete everything 
+	delete_all_settings();
+	//re-register default social networks
+	register_default_social_networks();
 	die();
 }

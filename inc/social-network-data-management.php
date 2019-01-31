@@ -104,7 +104,7 @@ function update_social_network($id, $data) {
 		// TODO: be more consistent with return values between this func and update_social_network_value
 		return false;
 	}
-	
+
 	// TODO: check that the data being passed in is valid
 	$social_networks[$id] = array_merge($social_networks[$id], $data);
 

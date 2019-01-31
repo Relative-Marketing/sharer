@@ -82,6 +82,11 @@ include RELATIVE_SHARER_DIR . 'inc/rendering/share.php';
  */
 include RELATIVE_SHARER_DIR . 'inc/widgets/class-profile-widget.php';
 
+/**
+ * Test
+ */
+include RELATIVE_SHARER_DIR . 'tests.php';
+
 // TODO: Move this to it's own file
 
 add_filter( 'the_content', __NAMESPACE__ . '\\output_share_buttons' );
@@ -94,14 +99,7 @@ function output_share_buttons( $content ) {
 	return get_page_sharer() . $content;
 }
 
-register_activation_hook( __FILE__, __NAMESPACE__ . '\\activate_sharer' );
-
-function activate_sharer() {
-	// If some options already exist do not do anything
-	// if ( get_option( RELATIVE_SHARER_SOCIAL_NETWORKS ) ) {
-	// 	return;
-	// }
-
+function register_default_social_networks() {
 	/**
 	 * Use some default social networks when activating the plugin for the first time.
 	 */
@@ -112,7 +110,7 @@ function activate_sharer() {
 			'nice_name' => 'Facebook',
 			'share_link_format' => 'https://www.facebook.com/sharer/sharer.php?u=%2$s',
 			'social_network_link' => '#',
-			'icon' => '',
+			'icon' => 'someurl',
 			'fa_icon' => 'facebook',
 		),
 		'twitter' => array(
@@ -153,6 +151,17 @@ function activate_sharer() {
 			)
 		);
 	}
+}
+
+register_activation_hook( __FILE__, __NAMESPACE__ . '\\activate_sharer' );
+
+function activate_sharer() {
+	// If some options already exist do not do anything
+	if ( get_option( RELATIVE_SHARER_SOCIAL_NETWORKS ) ) {
+		return;
+	}
+
+	register_default_social_networks();
 }
 
 /**
@@ -202,6 +211,16 @@ function rest_data() {
 		array(
 			'methods' => 'POST',
 			'callback' => __NAMESPACE__ . '\\endpoint_set_network_visibility',
+			// TODO: validate args
+			// 'args' => ['id' => array( 'validate_callback' => '__return_true' ), 'data' => array( 'validate_callback' => '__return_true' )]
+		)
+	);
+	
+	register_rest_route(
+		'relative-sharer/v1', 'update-icon-type',
+		array(
+			'methods' => 'POST',
+			'callback' => __NAMESPACE__ . '\\endpoint_update_icon_type',
 			// TODO: validate args
 			// 'args' => ['id' => array( 'validate_callback' => '__return_true' ), 'data' => array( 'validate_callback' => '__return_true' )]
 		)
@@ -258,4 +277,14 @@ function endpoint_set_network_visibility( \WP_REST_Request $req ) {
 	}
 
 	return false;
+}
+
+function endpoint_update_icon_type( \WP_REST_Request $req ) {
+	if (! current_user_can('manage_options') ) {
+		return;
+	}
+
+	$params = $req->get_params();
+
+	return update_social_network_value( $params['id'], 'icon_type', $params['type']);
 }
