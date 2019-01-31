@@ -1,0 +1,30 @@
+{
+  "name": "relative-sharer",
+  "version": "1.0.0",
+  "description": "This plugin will:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sasswatch": "sass --watch ./src/style.scss:./dist/style.css --style compressed",
+    "sasswatchadmin": "sass --watch ./src/admin_pages.scss:./dist/admin.css --style compressed",
+    "build": "cross-env BABEL_ENV=default NODE_ENV=production webpack",
+    "dev": "cross-env BABEL_ENV=default webpack --watch"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "cross-env": "^5.0.1",
+    "webpack": "^4.2.1",
+    "webpack-cli": "^3.2.1"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "classnames": "^2.2.6",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
+  },
+  "author": "Daniel Gregory",
+  "license": "ISC"
+}

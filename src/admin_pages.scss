@@ -1,0 +1,83 @@
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+#wpcontent {
+	padding-left: 0px;
+}
+.relative-sharer-social-network-form {
+	background: #fff;
+	border-radius: 10px;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+
+.social-network-form-field {
+	padding: 10px 0;
+
+	label {
+		font-size: 1.3rem;
+		margin-bottom: 10px;
+	}
+
+	p {
+		margin-top: 0;
+	}
+
+	input[type=text] {
+		padding: 10px;
+	}
+}
+
+.btn {
+	padding: 10px 30px;
+	background:#3869bc;
+	color: #fff;
+	font-size: 1rem;
+
+	&--submit {
+		margin-top: 15px;
+	}
+}
+
+.d-flex {
+	display:flex;
+}
+
+.flex-row {
+	flex-direction: row;
+}
+
+.flex-column {
+	flex-direction: column;
+}
+
+.width-50 {
+	width:50%;
+}
+
+.relative-sharer-header {
+	display: flex;
+	flex-direction: column;
+
+	&--main {
+		padding: 20px;
+		background: linear-gradient(to left,#2c308c, #3869bc);
+		h1, h2, h3, h4, h5, h6, p, a {
+			color: #fff;
+		}
+
+		h1 {
+			margin-bottom: 1rem;
+		}
+
+		p {
+			margin-top: 0;
+			font-size: 1rem;
+		}
+	}
+}
+
+.relative-share-main-page-area {
+	padding: 20px;
+}
