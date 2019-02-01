@@ -110,6 +110,7 @@ function register_default_social_networks() {
 			'nice_name' => 'Facebook',
 			'share_link_format' => 'https://www.facebook.com/sharer/sharer.php?u=%2$s',
 			'social_network_link' => '#',
+			'icon_type' => 'fa',
 			'icon' => 'someurl',
 			'fa_icon' => 'facebook',
 		),
@@ -118,6 +119,7 @@ function register_default_social_networks() {
 			'nice_name' => 'Twitter',
 			'share_link_format' => 'https://twitter.com/intent/tweet?original_referer=%2$s&url=%2$s',
 			'social_network_link' => '#',
+			'icon_type' => 'fa',
 			'icon' => '',
 			'fa_icon' => 'twitter',
 		),
@@ -126,6 +128,7 @@ function register_default_social_networks() {
 			'nice_name' => 'LinkedIn',
 			'share_link_format' => 'https://www.linkedin.com/shareArticle?mini=true&url=%2$s&title=%1$s',
 			'social_network_link' => '#',
+			'icon_type' => 'fa',
 			'icon' => '',
 			'fa_icon' => 'linkedin-in',
 		),
@@ -134,11 +137,12 @@ function register_default_social_networks() {
 			'nice_name' => 'Instagram',
 			'share_link_format' => '',
 			'social_network_link' => '',
+			'icon_type' => 'fa',
 			'icon' => '',
 			'fa_icon' => 'instagram',
-		)
-	);
-
+			)
+		);
+		
 	foreach ($default as $sn) {
 		register_and_activate_social_network(
 			new SocialNetwork( 
