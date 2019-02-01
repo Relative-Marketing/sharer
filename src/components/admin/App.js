@@ -22,7 +22,6 @@ const App = () => (
 					<Link to="/">Welcome</Link>
 					<Link to="social-network-settings">Social Network Settings</Link>
 				</div>
-				{/* // TODO: add react router and make this a page  */}
 
 				<Route exact path="/" component={WelcomePage} />
 				<Route path="/social-network-settings" component={SocialNetworkSettings} />
