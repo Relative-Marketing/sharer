@@ -1,3 +1,15 @@
+/**
+Provided incase theme doesn't include support for screen-reader-text class
+*/ 
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    word-wrap: normal !important;
+}
+
 .relative-sharer__page-share-wrapper {
 	margin: 15px 0;
 }
