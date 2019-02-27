@@ -6,7 +6,7 @@ namespace RelativeMarketing\Sharer;
  * Uncommenting the following line will delete any data you have
  * stored when the website is next loaded.
  */
-add_action('plugins_loaded', __NAMESPACE__ . '\\test');
+// add_action('plugins_loaded', __NAMESPACE__ . '\\test');
 
 function test() {
 
