@@ -48,8 +48,18 @@ if ( ! defined( 'RELATIVE_SHARER_ACTIVE_SOCIAL_NETWORKS_PROFILE' ) )
 if ( ! defined( 'RELATIVE_SHARER_ACTIVE_SOCIAL_NETWORKS_SHARE' ) )
 	define( 'RELATIVE_SHARER_ACTIVE_SOCIAL_NETWORKS_SHARE', RELATIVE_SHARER_ACTIVE_SOCIAL_NETWORKS . '_share' );
 
-if ( ! defined( 'RELATIVE_SHARER_AVAILABLE_CONTEXTS' ) )
-	define( 'RELATIVE_SHARER_AVAILABLE_CONTEXTS', array( 'profile', 'share' ) );
+if ( ! defined( 'RELATIVE_SHARER_AVAILABLE_CONTEXTS' ) ) :
+	/**
+	 * Not particularly happy with the constant value here, an array value would be better
+	 * but support for array values is only in php 7 and as much as I wish all sites would
+	 * update to 7 it's not always going to be possible (yet).
+	 * 
+	 * As a solution define available contexts as a string seperated by a pipe | character
+	 * then use the get_all_available_contexts() helper instead of the constant directly.
+	 */
+	define( 'RELATIVE_SHARER_AVAILABLE_CONTEXTS', 'profile|share' );
+endif;
+
 
 /**
  * Adds all required scripts and styles to the site

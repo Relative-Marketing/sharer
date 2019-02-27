@@ -6,12 +6,18 @@
 namespace RelativeMarketing\Sharer;
 
 /**
+ * Get available contexts
+ */
+function get_all_available_contexts() {
+	return explode( '|',RELATIVE_SHARER_AVAILABLE_CONTEXTS );
+}
+/**
  * Check if a given context is valid
  * 
  * return bool
  */
 function is_valid_context($context = '') {
-	return in_array( $context, RELATIVE_SHARER_AVAILABLE_CONTEXTS );
+	return in_array( $context, get_all_available_contexts() );
 }
 
 function invalid_context_error($fn) {

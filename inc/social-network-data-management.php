@@ -226,7 +226,7 @@ function delete_social_network( $id ) {
 	}
 
 	// Make sure we also delete from active contexts
-	foreach (RELATIVE_SHARER_AVAILABLE_CONTEXTS as $context) {
+	foreach (get_all_available_contexts() as $context) {
 		deactivate_social_network($id, $context);
 	}
 

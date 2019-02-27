@@ -6,7 +6,7 @@ namespace RelativeMarketing\Sharer;
  * Uncommenting the following line will delete any data you have
  * stored when the website is next loaded.
  */
-// add_action('plugins_loaded', __NAMESPACE__ . '\\test');
+add_action('plugins_loaded', __NAMESPACE__ . '\\test');
 
 function test() {
 
@@ -55,7 +55,7 @@ function test() {
 	echo "<p><strong>Should be false because twitter hasn't been registered: </strong></p>";
 	var_dump( is_social_network_registered('twitter') );
 	echo "<p><strong>Now register twitter and activate is in both contexts: </strong></p>";
-	register_and_activate_social_network($twitter, RELATIVE_SHARER_AVAILABLE_CONTEXTS );
+	register_and_activate_social_network($twitter, get_all_available_contexts() );
 	echo "<p><strong>Should have twitter in social_networks array now: </strong></p>";
 	var_dump( get_registered_social_networks() );
 	echo "<p><strong>delete it again: </strong></p>";
@@ -67,8 +67,8 @@ function test() {
 	echo "<p><strong>Should be an error key not valid: </strong></p>";
 	var_dump( update_social_network_value( 'facebook', 'weird_name', 'Test update' ) );
 	echo "<p><strong>Register twitter again for html output: </strong></p>";
-	register_and_activate_social_network( $twitter, RELATIVE_SHARER_AVAILABLE_CONTEXTS );
-	register_and_activate_social_network( $facebook, RELATIVE_SHARER_AVAILABLE_CONTEXTS );
+	register_and_activate_social_network( $twitter, get_all_available_contexts() );
+	register_and_activate_social_network( $facebook, get_all_available_contexts() );
 	var_dump( update_social_network_value( 'facebook', 'nice_name', 'Facebook' ) );
 
 	
