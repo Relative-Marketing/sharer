@@ -9,6 +9,7 @@ import {HashRouter as Router, Route, Link} from "react-router-dom"
 import Header from './Header'
 import SocialNetworkSettings from '../../pages/admin/SocialNetworkSettings';
 import WelcomePage from '../../pages/admin/Welcome';
+import GlobalSettings from '../../pages/admin/GlobalSettings';
 
 const App = () => (	
 	<Router>
@@ -17,14 +18,17 @@ const App = () => (
 			<div className="relative-sharer-main-container">
 
 				<div className="relative-sharer-sidebar">
-
 					<h3>Menu</h3>
-					<Link to="/">Welcome</Link>
-					<Link to="social-network-settings">Social Network Settings</Link>
+					<ul>
+						<li><Link to="/">Welcome</Link></li>
+						<li><Link to="global-settings">Global Settings</Link></li>
+						<li><Link to="social-network-settings">Social Network Settings</Link></li>
+					</ul>
 				</div>
 
 				<Route exact path="/" component={WelcomePage} />
 				<Route path="/social-network-settings" component={SocialNetworkSettings} />
+				<Route path="/global-settings" component={GlobalSettings} />
 			</div>
 		</div>
 	</Router>
