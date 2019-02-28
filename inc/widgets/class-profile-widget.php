@@ -107,17 +107,17 @@ class Profile_Widget extends \WP_Widget {
 			$style .= '#' . $args['widget_id'] . ' {';
 				
 			if ( $outer_color ) {
-				$style .= '--icon-color-outer: green;';
-				$style .= '--icon-color-main--hover: red;';
+				$style .= '--icon-color-outer: ' . $outer_color . ';';
+				$style .= '--icon-color-main--hover: r' . $outer_color . ';';
 			}
 
 			if ( $inner_color ) {
-				$style .= '--icon-color-main: blue;';
-				$style .= '--icon-color-outer--hover: yellow;';
+				$style .= '--icon-color-main: ' . $inner_color . ';';
+				$style .= '--icon-color-outer--hover: ' . $inner_color . ';';
 			}
 
 			if ( $icon_size ) {
-				$style .= '--icon-size: 3em;';
+				$style .= '--icon-size: ' . $icon_size . ';';
 			}
 
 			$style .= '}';
