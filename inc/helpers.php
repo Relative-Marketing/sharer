@@ -37,8 +37,8 @@ function invalid_context_error($fn) {
 
  function font_awesome_stack( $title, $inner_icon, $outer_icon = 'circle', $size = '2x', $inner_icon_type = 'fab', $classes = '' ) {
 	$output = '<span class="fa-stack relative-sharer-social-network-icons__fa-stack fa-' . $size . ' ' . $classes .'">';
-	$output .= '<i aria-hidden class="fa fa-' . $outer_icon . ' fa-stack-2x"></i>';
-	$output .= '<i aria-hidden class="' . $inner_icon_type . ' fa-' . $inner_icon . ' fa-stack-1x" title="'. $title .'"></i>';
+	$output .= '<i aria-hidden class="relative-sharer-icon--outer fa fa-' . $outer_icon . ' fa-stack-2x"></i>';
+	$output .= '<i aria-hidden class="relative-sharer-icon--main ' . $inner_icon_type . ' fa-' . $inner_icon . ' fa-stack-1x" title="'. $title .'"></i>';
 	$output .= '</span>';
 
 	return $output;
