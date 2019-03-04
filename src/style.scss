@@ -1,11 +1,52 @@
+$icon-color-main: #fff;
+$icon-color-outer: #303539;
+
+$icon-color-main--hover: $icon-color-outer;
+$icon-color-outer--hover: $icon-color-main;
+
+$icon-transition-duration: 0.5s;
+$icon-transition-type: all;
+$icon-transition-ease: ease;
+
+$icon-size: 1.25em;
+
+:root {
+	--icon-color-main: #{$icon-color-main};
+	--icon-color-main--hover: #{$icon-color-main--hover};
+	--icon-color-outer: #{$icon-color-outer};
+	--icon-color-outer--hover: #{$icon-color-outer--hover};
+	--icon-size: $icon-size;
+}
+/**
+ Mixins
+ */
+
+ @mixin variable($prop, $varName, $default) {
+	#{$prop}: $default;
+	#{$prop}: var($varName, $default);	 
+ }
+
+/**
+Provided incase theme doesn't include support for screen-reader-text class
+*/ 
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    word-wrap: normal !important;
+}
+
 .relative-sharer__page-share-wrapper {
 	margin: 15px 0;
 }
 .relative-sharer-social-network-icons {
 	display: inline-flex;
 
-	&__fa-stack {
+	&__fa-stack.fa-2x {
 		font-size: 1.25em;
+		@include variable(font-size, --icon-size, $icon-size);
 	}
 
 	i {
@@ -51,6 +92,35 @@
 
 .desktop-only, .desktop-d-inline-block {
 	display:none;
+}
+
+.relative-sharer-icon {
+	&--main, &--outer {
+		transition: $icon-transition-duration $icon-transition-type $icon-transition-ease;
+	}
+
+	&--main {
+		@include variable(color, --icon-color-main, $icon-color-main);
+	}
+	
+	&--outer {
+		@include variable(color, --icon-color-outer, $icon-color-outer);
+	}
+	
+	&-link {
+		display: block;
+		:hover {
+			.relative-sharer-icon {
+				&--main {
+					@include variable(color, --icon-color-main--hover, $icon-color-main--hover);
+				}
+			
+				&--outer {
+					@include variable(color, --icon-color-outer--hover, $icon-color-outer--hover);
+				}
+			}
+		}
+	}
 }
 
 @media screen and (min-width: 1024px) {

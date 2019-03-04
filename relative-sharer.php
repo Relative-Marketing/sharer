@@ -48,8 +48,18 @@ if ( ! defined( 'RELATIVE_SHARER_ACTIVE_SOCIAL_NETWORKS_PROFILE' ) )
 if ( ! defined( 'RELATIVE_SHARER_ACTIVE_SOCIAL_NETWORKS_SHARE' ) )
 	define( 'RELATIVE_SHARER_ACTIVE_SOCIAL_NETWORKS_SHARE', RELATIVE_SHARER_ACTIVE_SOCIAL_NETWORKS . '_share' );
 
-if ( ! defined( 'RELATIVE_SHARER_AVAILABLE_CONTEXTS' ) )
-	define( 'RELATIVE_SHARER_AVAILABLE_CONTEXTS', array( 'profile', 'share' ) );
+if ( ! defined( 'RELATIVE_SHARER_AVAILABLE_CONTEXTS' ) ) :
+	/**
+	 * Not particularly happy with the constant value here, an array value would be better
+	 * but support for array values is only in php 7 and as much as I wish all sites would
+	 * update to 7 it's not always going to be possible (yet).
+	 * 
+	 * As a solution define available contexts as a string seperated by a pipe | character
+	 * then use the get_all_available_contexts() helper instead of the constant directly.
+	 */
+	define( 'RELATIVE_SHARER_AVAILABLE_CONTEXTS', 'profile|share' );
+endif;
+
 
 /**
  * Adds all required scripts and styles to the site
@@ -82,6 +92,11 @@ include RELATIVE_SHARER_DIR . 'inc/rendering/share.php';
  */
 include RELATIVE_SHARER_DIR . 'inc/widgets/class-profile-widget.php';
 
+/**
+ * Test
+ */
+include RELATIVE_SHARER_DIR . 'tests.php';
+
 // TODO: Move this to it's own file
 
 add_filter( 'the_content', __NAMESPACE__ . '\\output_share_buttons' );
@@ -94,14 +109,7 @@ function output_share_buttons( $content ) {
 	return get_page_sharer() . $content;
 }
 
-register_activation_hook( __FILE__, __NAMESPACE__ . '\\activate_sharer' );
-
-function activate_sharer() {
-	// If some options already exist do not do anything
-	// if ( get_option( RELATIVE_SHARER_SOCIAL_NETWORKS ) ) {
-	// 	return;
-	// }
-
+function register_default_social_networks() {
 	/**
 	 * Use some default social networks when activating the plugin for the first time.
 	 */
@@ -112,7 +120,8 @@ function activate_sharer() {
 			'nice_name' => 'Facebook',
 			'share_link_format' => 'https://www.facebook.com/sharer/sharer.php?u=%2$s',
 			'social_network_link' => '#',
-			'icon' => '',
+			'icon_type' => 'fa',
+			'icon' => 'someurl',
 			'fa_icon' => 'facebook',
 		),
 		'twitter' => array(
@@ -120,6 +129,7 @@ function activate_sharer() {
 			'nice_name' => 'Twitter',
 			'share_link_format' => 'https://twitter.com/intent/tweet?original_referer=%2$s&url=%2$s',
 			'social_network_link' => '#',
+			'icon_type' => 'fa',
 			'icon' => '',
 			'fa_icon' => 'twitter',
 		),
@@ -128,6 +138,7 @@ function activate_sharer() {
 			'nice_name' => 'LinkedIn',
 			'share_link_format' => 'https://www.linkedin.com/shareArticle?mini=true&url=%2$s&title=%1$s',
 			'social_network_link' => '#',
+			'icon_type' => 'fa',
 			'icon' => '',
 			'fa_icon' => 'linkedin-in',
 		),
@@ -136,11 +147,12 @@ function activate_sharer() {
 			'nice_name' => 'Instagram',
 			'share_link_format' => '',
 			'social_network_link' => '',
+			'icon_type' => 'fa',
 			'icon' => '',
 			'fa_icon' => 'instagram',
-		)
-	);
-
+			)
+		);
+		
 	foreach ($default as $sn) {
 		register_and_activate_social_network(
 			new SocialNetwork( 
@@ -153,6 +165,17 @@ function activate_sharer() {
 			)
 		);
 	}
+}
+
+register_activation_hook( __FILE__, __NAMESPACE__ . '\\activate_sharer' );
+
+function activate_sharer() {
+	// If some options already exist do not do anything
+	if ( get_option( RELATIVE_SHARER_SOCIAL_NETWORKS ) ) {
+		return;
+	}
+
+	register_default_social_networks();
 }
 
 /**
@@ -202,6 +225,16 @@ function rest_data() {
 		array(
 			'methods' => 'POST',
 			'callback' => __NAMESPACE__ . '\\endpoint_set_network_visibility',
+			// TODO: validate args
+			// 'args' => ['id' => array( 'validate_callback' => '__return_true' ), 'data' => array( 'validate_callback' => '__return_true' )]
+		)
+	);
+	
+	register_rest_route(
+		'relative-sharer/v1', 'update-icon-type',
+		array(
+			'methods' => 'POST',
+			'callback' => __NAMESPACE__ . '\\endpoint_update_icon_type',
 			// TODO: validate args
 			// 'args' => ['id' => array( 'validate_callback' => '__return_true' ), 'data' => array( 'validate_callback' => '__return_true' )]
 		)
@@ -258,4 +291,14 @@ function endpoint_set_network_visibility( \WP_REST_Request $req ) {
 	}
 
 	return false;
+}
+
+function endpoint_update_icon_type( \WP_REST_Request $req ) {
+	if (! current_user_can('manage_options') ) {
+		return;
+	}
+
+	$params = $req->get_params();
+
+	return update_social_network_value( $params['id'], 'icon_type', $params['type']);
 }

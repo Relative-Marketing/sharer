@@ -104,7 +104,7 @@ function update_social_network($id, $data) {
 		// TODO: be more consistent with return values between this func and update_social_network_value
 		return false;
 	}
-	
+
 	// TODO: check that the data being passed in is valid
 	$social_networks[$id] = array_merge($social_networks[$id], $data);
 
@@ -226,7 +226,7 @@ function delete_social_network( $id ) {
 	}
 
 	// Make sure we also delete from active contexts
-	foreach (RELATIVE_SHARER_AVAILABLE_CONTEXTS as $context) {
+	foreach (get_all_available_contexts() as $context) {
 		deactivate_social_network($id, $context);
 	}
 
