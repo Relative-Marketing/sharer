@@ -108,7 +108,7 @@ class Profile_Widget extends \WP_Widget {
 				
 			if ( $outer_color ) {
 				$style .= '--icon-color-outer: ' . $outer_color . ';';
-				$style .= '--icon-color-main--hover: r' . $outer_color . ';';
+				$style .= '--icon-color-main--hover: ' . $outer_color . ';';
 			}
 
 			if ( $inner_color ) {
